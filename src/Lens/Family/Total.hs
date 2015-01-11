@@ -12,8 +12,8 @@
 -- >
 -- > total :: Either Char Int -> String       -- Same as:
 -- > total = _case                            -- total = \case
--- >     # on _Left  (\c -> replicate 3  c )  --     Left  c -> replicate 3 c
--- >     # on _Right (\n -> replicate n '!')  --     Right n -> replicate n '!'
+-- >     & on _Left  (\c -> replicate 3  c )  --     Left  c -> replicate 3 c
+-- >     & on _Right (\n -> replicate n '!')  --     Right n -> replicate n '!'
 --
 -- Our @example@ function pattern matches exhaustively on the `Either` type using
 -- the `Lens.Family.Stock._Left` and `Lens.Family.Stock._Right` prisms:
@@ -28,15 +28,15 @@
 --
 -- > partial :: Either Char Int -> String
 -- > partial = _case
--- >     # on _Left  (\c -> replicate 3  c )
+-- >     & on _Left  (\c -> replicate 3  c )
 --
 -- ... then you will get the following type error:
 --
 -- > No instance for (Empty Int) arising from a use of ‘_case’
--- > In the first argument of ‘(#)’, namely ‘_case’
--- > In the expression: _case # on _Left (\ c -> replicate 3 c)
+-- > In the first argument of ‘(&)’, namely ‘_case’
+-- > In the expression: _case & on _Left (\ c -> replicate 3 c)
 -- > In an equation for ‘partial’:
--- >     partial = _case # on _Left (\ c -> replicate 3 c)
+-- >     partial = _case & on _Left (\ c -> replicate 3 c)
 --
 -- That type error means that you didn't pattern match on the branch with the
 -- `Int`.
@@ -60,9 +60,9 @@
 -- >
 -- > example :: Example String Char Int -> String  -- Same as:
 -- > example = _case                               -- example = \case
--- >     # on _C1 (\s -> s              )          --     C1 s -> s
--- >     # on _C2 (\c -> replicate 3  c )          --     C2 c -> replicate 3  c
--- >     # on _C3 (\n -> replicate n '!')          --     C3 n -> replicate n '!'
+-- >     & on _C1 (\s -> s              )          --     C1 s -> s
+-- >     & on _C2 (\c -> replicate 3  c )          --     C2 c -> replicate 3  c
+-- >     & on _C3 (\n -> replicate n '!')          --     C3 n -> replicate n '!'
 --
 -- There is no way to prove that the pattern match is exhaustive unless there is
 -- a type parameter for every branch.  This is because each successive pattern
@@ -74,19 +74,19 @@
 --
 -- > example :: (Int, Char) -> String     -- Same as:
 -- > example = _case                      -- example = \case
--- >     # on _1 (\n -> replicate n '1')  --     (n, _) -> replicate n '1'
+-- >     & on _1 (\n -> replicate n '1')  --     (n, _) -> replicate n '1'
 --
 -- ... and of course the identity lens (`id`) works, too:
 --
 -- > example :: (Int, Char) -> String        -- Same as:
 -- > example = _case                         -- example = \case
--- >     # on id (\(n, c) -> replicate n c)  --     (n, c) -> replicate n c
+-- >     & on id (\(n, c) -> replicate n c)  --     (n, c) -> replicate n c
 
 module Lens.Family.Total (
       Empty(..)
     , _case
     , on
-    , (#)
+    , (&)
 
     -- * Re-exports
     , Void
@@ -147,7 +147,7 @@ on p f g x = case p Left x of
     Right r -> g r
 
 -- | Operator for post-fix function application
-(#) :: a -> (a -> b) -> b
-x # f = f x
+(&) :: a -> (a -> b) -> b
+x & f = f x
 
-infixl 1 #
+infixl 1 &
