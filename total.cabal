@@ -8,7 +8,7 @@ Copyright: 2015 Gabriel Gonzalez
 Author: Gabriel Gonzalez
 Maintainer: Gabriel439@gmail.com
 Bug-Reports: https://github.com/Gabriel439/Haskell-Total-Library/issues
-Synopsis: Exhaustive pattern matching using lenses, traversals, and prism
+Synopsis: Exhaustive pattern matching using lenses, traversals, and prisms
 Description: Use this library if you wish to hide your data type's internal
   representation while still providing a way to exhaustively pattern match on your
   type using exposed lenses, traversals, or prisms.
