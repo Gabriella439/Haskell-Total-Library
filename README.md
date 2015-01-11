@@ -10,13 +10,15 @@ The `total` library lets you exhaustively pattern match on types using
 
 Example code:
 
-    import Lens.Family.Total
-    import Lens.Family.Stock
+```haskell
+import Lens.Family.Total
+import Lens.Family.Stock
 
-    total :: Either Char Int -> String       -- Same as:
-    total = _case                            -- total = \case
-        & on _Left  (\c -> replicate 3  c )  --     Left  c -> replicate 3 c
-        & on _Right (\n -> replicate n '!')  --     Right n -> replicate n '!'
+total :: Either Char Int -> String       -- Same as:
+total = _case                            -- total = \case
+    & on _Left  (\c -> replicate 3  c )  --     Left  c -> replicate 3 c
+    & on _Right (\n -> replicate n '!')  --     Right n -> replicate n '!'
+```
 
 To learn more, read
 [the documentation](http://hackage.haskell.org/packages/archive/total/1.0.0/doc/html/Lens-Family-Total.html)
