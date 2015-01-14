@@ -15,12 +15,12 @@
 -- >     & on _Left  (\c -> replicate 3  c )  --     Left  c -> replicate 3 c
 -- >     & on _Right (\n -> replicate n '!')  --     Right n -> replicate n '!'
 --
--- Our @example@ function pattern matches exhaustively on the `Either` type using
+-- Our @total@ function pattern matches exhaustively on the `Either` type using
 -- the `Lens.Family.Stock._Left` and `Lens.Family.Stock._Right` prisms:
 --
--- >>> example (Left 'X')
+-- >>> total (Left 'X')
 -- "XXX"
--- >>> example (Right 2)
+-- >>> total (Right 2)
 -- "!!"
 --
 -- The types ensure that the above function is total.  For example, if you omit
