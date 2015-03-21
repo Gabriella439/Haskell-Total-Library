@@ -70,6 +70,12 @@
 -- longer needs to be handled.  `_case` just verifies that all type parameters are
 -- `Void`.
 --
+-- You can still write an inexhaustive pattern match so long as you provide a
+-- default:
+-- > example :: Example Int String Float -> String
+-- > example = _default "default"
+-- >     & on _C2 (\s -> s)
+--
 -- You can even pattern match using `Lens.Family.Lens`es, too:
 --
 -- > example :: (Int, Char) -> String     -- Same as:
@@ -134,6 +140,11 @@ instance GEmpty a => GEmpty (a :*: b) where
 -- | Synonym for `impossible`, used to check if a pattern match is exhaustive
 _case :: Empty a => a -> x
 _case = impossible
+
+-- | Synonym for `const`, used to provide a default if a pattern match is
+-- inexhaustive
+_default :: x -> a -> x
+_default x _ = x
 
 -- | Pattern match on a `Lens.Family.Traversal`
 on
