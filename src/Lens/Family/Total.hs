@@ -91,6 +91,7 @@
 module Lens.Family.Total (
       Empty(..)
     , _case
+    , _default
     , on
     , (&)
 
