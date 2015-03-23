@@ -72,6 +72,7 @@
 --
 -- You can still write an inexhaustive pattern match so long as you provide a
 -- default:
+--
 -- > example :: Example Int String Float -> String
 -- > example = _default "default"
 -- >     & on _C2 (\s -> s)
