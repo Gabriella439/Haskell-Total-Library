@@ -21,7 +21,6 @@ Library
     Hs-Source-Dirs: src
     Build-Depends:
         base     >= 4       && < 4.9,
-        ghc-prim >= 0.2.0.0 && < 0.4,
         void     >= 0.4     && < 0.8
     Exposed-Modules: Lens.Family.Total
     GHC-Options: -O2 -Wall
