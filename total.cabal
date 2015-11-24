@@ -1,5 +1,5 @@
 Name: total
-Version: 1.0.2
+Version: 1.0.4
 Cabal-Version: >=1.8.0.2
 Build-Type: Simple
 License: BSD3
@@ -21,7 +21,6 @@ Library
     Hs-Source-Dirs: src
     Build-Depends:
         base     >= 4       && < 4.9,
-        ghc-prim >= 0.2.0.0 && < 0.4,
         void     >= 0.4     && < 0.8
     Exposed-Modules: Lens.Family.Total
     GHC-Options: -O2 -Wall

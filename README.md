@@ -1,4 +1,4 @@
-# total-1.0.2
+# total-1.0.4
 
 The `total` library lets you exhaustively pattern match on types using
 `Traversal`s, `Prism`s, and `Lens`es.
