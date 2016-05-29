@@ -101,6 +101,7 @@ module Lens.Family.Total (
     ) where
 
 import Data.Void (Void, absurd)
+import Data.Function ((&))
 import GHC.Generics
 
 -- | A type class for uninhabited types
@@ -158,9 +159,3 @@ on
 on p f g x = case p Left x of
     Left  l -> f l
     Right r -> g r
-
--- | Operator for post-fix function application
-(&) :: a -> (a -> b) -> b
-x & f = f x
-
-infixl 1 &
