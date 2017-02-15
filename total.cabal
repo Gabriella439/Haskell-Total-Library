@@ -20,7 +20,7 @@ Source-Repository head
 Library
     Hs-Source-Dirs: src
     Build-Depends:
-        base     >= 4       && < 4.9,
+        base     >= 4       && < 5  ,
         void     >= 0.4     && < 0.8
     Exposed-Modules: Lens.Family.Total
     GHC-Options: -O2 -Wall
