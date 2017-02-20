@@ -2,6 +2,7 @@ Name: total
 Version: 1.0.4
 Cabal-Version: >=1.8.0.2
 Build-Type: Simple
+Tested-With: GHC == 7.6.3, GHC == 7.8.4, GHC == 7.10.2, GHC == 8.0.1
 License: BSD3
 License-File: LICENSE
 Copyright: 2015 Gabriel Gonzalez
@@ -23,4 +24,4 @@ Library
         base     >= 4       && < 5  ,
         void     >= 0.4     && < 0.8
     Exposed-Modules: Lens.Family.Total
-    GHC-Options: -O2 -Wall
+    GHC-Options: -Wall
