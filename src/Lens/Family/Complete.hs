@@ -56,7 +56,6 @@ instance GFull a => GFull (a :+: b) where
 _cocase :: Full a => x -> a
 _cocase = trivial
 
--- TODO: Figure out whether the reference to Lens.Family.etc needs fixing, the module seems to be missing
 -- | Copattern match on a `Lens.Family.Traversal`
 at
     :: ((() -> Identity b) -> s -> Identity t)
