@@ -69,7 +69,7 @@ at
     -> t
 at p f g = convert p . (f &&& g)
   where
-  convert p (b, s) = runIdentity $ p (const $ Identity $ b) s
+  convert p' (b, s) = runIdentity $ p' (const $ Identity $ b) s
 
 -- TODO: Figure out whether this needs to be in a common module
 #if __GLASGOW_HASKELL__ < 710
