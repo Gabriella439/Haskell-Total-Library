@@ -115,7 +115,7 @@ class Empty a where
     impossible = gimpossible . from
 
 instance Empty Void where
-     impossible = absurd
+    impossible = absurd
 
 instance (Empty a, Empty b) => Empty (Either a b) where
     impossible (Left  a) = impossible a
@@ -154,14 +154,12 @@ _default x _ = x
 
 -- | Pattern match on a `Lens.Family.Traversal`
 on
-    :: ((a -> Either a Void) -> i -> Either l r)
-    -> (l -> o)
+    :: ((a -> Either a Void) -> s -> Either a r)
+    -> (a -> o)
     -> (r -> o)
-    -> i
+    -> s
     -> o
-on p f g x = case p Left x of
-    Left  l -> f l
-    Right r -> g r
+on p f g = either f g . p Left
 
 #if __GLASGOW_HASKELL__ < 710
 -- | Operator for post-fix function application

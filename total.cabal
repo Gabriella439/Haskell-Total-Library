@@ -23,5 +23,7 @@ Library
     Build-Depends:
         base     >= 4       && < 5  ,
         void     >= 0.4     && < 0.8
-    Exposed-Modules: Lens.Family.Total
+    Exposed-Modules:
+      Lens.Family.Total
+      Lens.Family.Complete
     GHC-Options: -Wall
