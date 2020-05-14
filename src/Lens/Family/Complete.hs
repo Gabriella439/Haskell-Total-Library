@@ -5,7 +5,7 @@
 
 module Lens.Family.Complete
     ( Full(..)
-    , GFull(..)
+    , GFull(..) -- TODO: Why isn't GEmpty exported from the other module?
     , _cocase
     , at
 
@@ -14,8 +14,8 @@ module Lens.Family.Complete
     , (&&&)
     ) where
 
-import Data.Functor.Identity
 #if __GLASGOW_HASKELL__ >= 710
+import Data.Functor.Identity
 import Data.Function ((&))
 #endif
 import Control.Arrow ((&&&))
@@ -73,6 +73,17 @@ at p f g = convert p . (f &&& g)
 
 -- TODO: Figure out whether this needs to be in a common module
 #if __GLASGOW_HASKELL__ < 710
+-- | The identity functor
+newtype Identity a = Identity { runIdentity :: a }
+
+instance Functor Identity
+  where
+  fmap f (Identity a) = Identity $ f a
+
+instance Applicative Identity where
+    pure = Identity
+    Identity f <*> Identity a = Identity $ f a
+
 -- | Operator for post-fix function application
 (&) :: a -> (a -> b) -> b
 x & f = f x
