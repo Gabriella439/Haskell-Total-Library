@@ -4,7 +4,7 @@
 
 module Lens.Family.Complete
     ( Full(..)
-    , GFull(..) -- TODO: Why isn't GEmpty exported from the other module?
+    , GFull(..)
     , _cocase
     , at
 
