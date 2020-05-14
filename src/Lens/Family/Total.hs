@@ -1,7 +1,6 @@
 {-# LANGUAGE DefaultSignatures #-}
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE TypeOperators     #-}
-{-# LANGUAGE CPP               #-}
 
 -- | This module lets you exhaustively pattern match on types using
 -- `Lens.Family.Lens`es, `Lens.Family.Traversal`s, or `Lens.Family.Prism`s.
@@ -92,6 +91,7 @@
 
 module Lens.Family.Total (
       Empty(..)
+    , GEmpty(..)
     , _case
     , _default
     , on
@@ -102,9 +102,7 @@ module Lens.Family.Total (
     ) where
 
 import Data.Void (Void, absurd)
-#if __GLASGOW_HASKELL__ >= 710
 import Data.Function ((&))
-#endif
 import GHC.Generics
 
 -- | A type class for uninhabited types
@@ -115,7 +113,7 @@ class Empty a where
     impossible = gimpossible . from
 
 instance Empty Void where
-     impossible = absurd
+    impossible = absurd
 
 instance (Empty a, Empty b) => Empty (Either a b) where
     impossible (Left  a) = impossible a
@@ -154,18 +152,9 @@ _default x _ = x
 
 -- | Pattern match on a `Lens.Family.Traversal`
 on
-    :: ((a -> Either a Void) -> i -> Either l r)
-    -> (l -> o)
+    :: ((a -> Either a Void) -> s -> Either a r)
+    -> (a -> o)
     -> (r -> o)
-    -> i
+    -> s
     -> o
-on p f g x = case p Left x of
-    Left  l -> f l
-    Right r -> g r
-
-#if __GLASGOW_HASKELL__ < 710
--- | Operator for post-fix function application
-(&) :: a -> (a -> b) -> b
-x & f = f x
-infixl 1 &
-#endif
+on p f g = either f g . p Left
