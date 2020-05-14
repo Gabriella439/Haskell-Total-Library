@@ -1,7 +1,6 @@
 {-# LANGUAGE DefaultSignatures #-}
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE TypeOperators     #-}
-{-# LANGUAGE CPP               #-}
 
 module Lens.Family.Complete
     ( Full(..)
@@ -14,13 +13,8 @@ module Lens.Family.Complete
     , (&&&)
     ) where
 
-#if __GLASGOW_HASKELL__ >= 710
 import Data.Functor.Identity
 import Data.Function ((&))
-#endif
-#if __GLASGOW_HASKELL__ < 710
-import Control.Applicative
-#endif
 import Control.Arrow ((&&&))
 import GHC.Generics
 
@@ -73,22 +67,3 @@ at
 at p f g = convert p . (f &&& g)
   where
   convert p' (b, s) = runIdentity $ p' (const $ Identity $ b) s
-
--- TODO: Figure out whether this needs to be in a common module
-#if __GLASGOW_HASKELL__ < 710
--- | The identity functor
-newtype Identity a = Identity { runIdentity :: a }
-
-instance Functor Identity
-  where
-  fmap f (Identity a) = Identity $ f a
-
-instance Applicative Identity where
-    pure = Identity
-    Identity f <*> Identity a = Identity $ f a
-
--- | Operator for post-fix function application
-(&) :: a -> (a -> b) -> b
-x & f = f x
-infixl 1 &
-#endif
