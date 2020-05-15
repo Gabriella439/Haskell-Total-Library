@@ -2,8 +2,8 @@ let
   config = {
     packageOverrides = pkgs: {
       haskellPackages = pkgs.haskellPackages.override {
-        overrides = haskellPackagesNew: haskellPackagesOld: {
-          total = haskellPackagesNew.callPackage ./default.nix { };
+        overrides = pkgs.haskell.lib.packageSourceOverrides {
+          total = ./.;
         };
       };
     };
