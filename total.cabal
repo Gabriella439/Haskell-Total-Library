@@ -1,6 +1,6 @@
 Name: total
 Version: 1.0.6
-Cabal-Version: >=1.8.0.2
+Cabal-Version: >=1.10
 Build-Type: Simple
 Tested-With: GHC == 7.6.3, GHC == 7.8.4, GHC == 7.10.2, GHC == 8.0.1
 License: BSD3
@@ -27,3 +27,4 @@ Library
       Lens.Family.Total
       Lens.Family.Complete
     GHC-Options: -Wall
+    Default-Language: Haskell2010
