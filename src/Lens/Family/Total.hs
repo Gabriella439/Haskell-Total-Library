@@ -156,9 +156,22 @@ _case = impossible
 _default :: x -> a -> x
 _default x _ = x
 
--- | Pattern match on a `Lens.Family.Traversal`
+-- | Pattern match on a `Lens.Family.Traversal`.
+-- We use a general @'Empty' v@ to get more flexibility with nested
+-- sums. Given
+--
+-- @
+-- data Sum1 a b = A a | B b
+-- data Sum2 a b c = AB (Sum1 a b) | C c
+-- @
+--
+-- we may want to traverse @Sum2@ with traversals @_AB . _A@
+-- and @_AB . _B@, targeting @a@ and @b@ (each of which can be
+-- 'Void') or use @_AB@ directly to target @Sum1 a b@, which can
+-- be @Sum1 'Void' 'Void'@.
 on
-    :: ((a -> Either a Void) -> s -> Either a r)
+    :: Empty v
+    => ((a -> Either a v) -> s -> Either a r)
     -> (a -> o)
     -> (r -> o)
     -> s
