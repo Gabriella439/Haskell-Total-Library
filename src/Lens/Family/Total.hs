@@ -104,6 +104,7 @@ module Lens.Family.Total (
 import Data.Void (Void, absurd)
 import Data.Function ((&))
 import GHC.Generics
+import Lens.Family.Complete (Full (..))
 
 -- | A type class for uninhabited types
 class Empty a where
@@ -119,6 +120,10 @@ instance (Empty a, Empty b) => Empty (Either a b) where
     impossible (Left  a) = impossible a
     impossible (Right b) = impossible b
 
+instance (Full a, Empty b) => Empty (a -> b) where
+    impossible f = impossible (f (trivial ()))
+
+-- | Left-biased
 instance Empty a => Empty ((,) a b) where
     impossible (a, _) = impossible a
 
@@ -138,6 +143,7 @@ instance Empty a => GEmpty (K1 i a) where
 instance GEmpty a => GEmpty (M1 i c a) where
     gimpossible (M1 m) = gimpossible m
 
+-- | Left-biased
 instance GEmpty a => GEmpty (a :*: b) where
     gimpossible (a :*: _) = gimpossible a
 
